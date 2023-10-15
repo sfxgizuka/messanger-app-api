@@ -158,11 +158,11 @@ export const userLogin = async (req:Request,res: Response) => {
                     }, process.env.SECRET,{
                          expiresIn: process.env.TOKEN_EXP
                     }); 
- const options = { expires : new Date(Date.now() + (+process.env.COOKIE_EXP) * 24 * 60 * 60 * 1000 )}
+               const options = { domain: 'localhost', expires : new Date(Date.now() + (+process.env.COOKIE_EXP) * 24 * 60 * 60 * 1000 )}
 
-res.status(200).cookie('authToken',token, options).json({
-     successMessage : 'Your Login Successful',token
-})
+               res.status(200).cookie('authToken',token, options).json({
+                    successMessage : 'Your Login Successful',token
+               })
 
                } else{
                     res.status(400).json({
