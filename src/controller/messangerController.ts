@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import User from '../model/authModel';
+import messageModel from '../model/messageModel';
 
 export const getFriends = async (req:any, res:Response) => {
     const myId = req?.myId;
@@ -12,6 +13,40 @@ export const getFriends = async (req:any, res:Response) => {
           res.status(500).json({
                error: {
                     errorMessage :'Internal Sever Error'
+               }
+          })
+     }
+}
+
+export const messageUploadDB = async (req:any, res:Response) =>{
+     console.log('entered')
+     const {
+          senderName,
+          receiverId,
+          message
+     } = req.body
+
+     const senderId = req.myId;
+
+     try{
+          const insertMessage = await messageModel.create({
+               senderId : senderId,
+               senderName : senderName,
+               receiverId : receiverId,
+               message : {
+                    text: message,
+                    image : ''
+               }
+          })
+          res.status(201).json({
+               success : true,
+               message: insertMessage
+          })
+
+     }catch (error){
+          res.status(500).json({
+               error: {
+                    errorMessage : 'Internal Sever Error'
                }
           })
      }
