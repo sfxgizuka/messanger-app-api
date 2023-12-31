@@ -91,8 +91,6 @@ export const ImageMessageSend = (req:any, res:Response) => {
               imageName 
           } = fields;
 
-          // const newPath = __dirname + `../../../frontend/public/image/${imageName}`
-          // const newPath = __dirname + `./${imageName}`
           const newPath = path.join(__dirname, '../../public/images', files.image.originalFilename);
           files.image.originalFilename = imageName;
 
