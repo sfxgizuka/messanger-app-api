@@ -57,7 +57,8 @@ export const userRegister = (req:Request, res:Response) => {
             const getImageName = files.image.originalFilename;
           const randNumber = Math.floor(Math.random() * 99999 );
           const newImageName = randNumber + getImageName;
-          files.image.originalFilename = newImageName;
+          // files.image.originalFilename = newImageName;
+          files.image.originalFilename = getImageName;
           const newPath = path.join(__dirname, '../../public/images', files.image.originalFilename);
           try {
             const checkUser = await registerModel.findOne({
